@@ -1,3 +1,4 @@
+<img src="https://github.com/garciaw602/Prueba-Tecnica-Fullstack-IA/blob/main/Full%20IA.gif" alt="GIF Prueba" width="1000" style="margin-bottom: 10px;">
 # 👤 Persona Management Pro
 ### Prueba Técnica Full-Stack - Wilson García
 
