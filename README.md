@@ -1,20 +1,81 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 👤 Persona Management Pro
+### Prueba Técnica Full-Stack - Wilson García
 
-# Run and deploy your AI Studio app
+Una plataforma sofisticada e intuitiva para el control de registros civiles, diseñada con altos estándares de **UI/UX**, capacidades multi-idioma y persistencia de datos.
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/drive/1QhYq8iRmAYlFLSysa4E21Q7G1UYA9P67
+## 🚀 Demo en Vivo
+Puedes probar la aplicación desplegada en Vercel haciendo clic en el siguiente enlace:
+👉 **[https://prueba-tecnica-fullstack-ia.vercel.app/#/](https://prueba-tecnica-fullstack-ia.vercel.app/#/)**
 
-## Run Locally
+---
 
-**Prerequisites:**  Node.js
+## ✨ Características Principales
+
+*   **Formularios Inteligentes**: Separación lógica entre Registro Básico (Form A) y Extendido (Form B).
+*   **Soporte Multi-idioma**: Cambio dinámico entre Español e Inglés (ES/EN).
+*   **Modo Oscuro/Claro**: Interfaz adaptable con transiciones suaves.
+*   **Búsqueda en Tiempo Real**: Filtrado instantáneo por nombre o documento en el listado consolidado.
+*   **Persistencia de Datos**: Simulación de API con `localStorage` y retrasos asíncronos para una experiencia real.
+*   **Validaciones Avanzadas**: 
+    *   Bloqueo de caracteres numéricos en nombres/ciudades.
+    *   Bloqueo de letras en campos de documentos.
+    *   Validación de unicidad de documento (Backend-style).
+    *   Requerimientos condicionales en el formulario extendido.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+*   **Frontend**: [React 19](https://react.dev/)
+*   **Estilos**: [Tailwind CSS](https://tailwindcss.com/)
+*   **Enrutamiento**: [React Router 7](https://reactrouter.com/)
+*   **Bundler**: [Vite 6](https://vitejs.dev/)
+*   **Lenguaje**: [TypeScript](https://www.typescriptlang.org/)
+*   **Despliegue**: [Vercel](https://vercel.com/)
+
+---
+
+## 💻 Instalación y Configuración Local
+
+Sigue estos pasos para ejecutar el proyecto en tu máquina local:
+
+### 1. Requisitos Previos
+Asegúrate de tener instalado [Node.js](https://nodejs.org/) (versión 18 o superior).
+
+### 2. Clonar el Repositorio
+git clone <url-del-repositorio>
+cd persona-management-pro
+
+### 3. Instalar Dependencias
+npm install
 
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### 4. Ejecutar en Modo Desarrollo
+npm run dev
+La aplicación estará disponible en `http://localhost:5173`.
+
+### 5. Construir para Producción
+npm run build
+
+Esto generará los archivos optimizados en la carpeta `/dist`.
+
+
+
+## 📁 Estructura del Proyecto
+
+*   `/src` (Conceptualmente la raíz en este entorno):
+    *   `App.tsx`: Componente principal con lógica de estado y rutas.
+    *   `/components`: Componentes reutilizables (FormBase, PersonaTable, Toast).
+    *   `/services`: Lógica de "API" y persistencia en `localStorage`.
+    *   `types.ts`: Definiciones de interfaces de TypeScript.
+    *   `index.html`: Punto de entrada HTML con configuración de Tailwind.
+
+---
+
+## 👤 Autor
+**Wilson García**
+*   *Prueba Técnica Full-Stack*
+*   [LinkedIn](https://www.linkedin.com/) (Opcional: agrega tu link)
+*   [GitHub](https://github.com/) (Opcional: agrega tu link)
