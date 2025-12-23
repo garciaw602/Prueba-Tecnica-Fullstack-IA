@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { HashRouter as Router, Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { Persona, PersonaInput, FormField } from './types';
 import { apiService } from './services/apiService';
 import FormBase from './components/FormBase';
@@ -13,15 +13,15 @@ const INITIAL_EXTENDED: PersonaInput = { nombre: '', apellido: '', documento: ''
 const translations = {
   es: {
     title: 'Management',
-    subtitle: 'Una plataforma intuitiva para el control y organización de registros civiles, diseñada con los más altos estándares de UI/UX.',
+    subtitle: 'Plataforma intuitiva para el control de registros civiles, diseñada con altos estándares de UI/UX.',
     basicTab: 'Básico (Form A)',
     extendedTab: 'Extendido (Form B)',
     basicTitle: 'Nuevo Registro Básico',
     extendedTitle: 'Nuevo Registro Extendido',
     recordsInSystem: 'Registros en Sistema',
-    synced: 'Sincronizado con base de datos local',
-    footerName: 'Wilson García - Portafolio Técnico',
-    footerTech: 'Prueba Técnica React v18 & Tailwind 3.4',
+    synced: 'Sincronizado localmente',
+    footerName: 'Wilson García - Portafolio',
+    footerTech: 'Prueba Técnica React 19 & Tailwind',
     nombre: 'Nombre',
     apellido: 'Apellido',
     documento: 'Documento',
@@ -34,11 +34,11 @@ const translations = {
     btnCancel: 'Cancelar y Salir',
     editMode: 'Modo Edición',
     toastCreated: 'Registro creado con éxito',
-    toastUpdated: 'Registro actualizado correctamente',
+    toastUpdated: 'Registro actualizado',
     toastDeleted: 'Registro eliminado',
     toastEditing: 'Editando a',
-    toastErrorLoad: 'Error al cargar los datos',
-    toastErrorProcess: 'Error al procesar la solicitud',
+    toastErrorLoad: 'Error al cargar datos',
+    toastErrorProcess: 'Error al procesar',
     toastErrorDelete: 'Error al eliminar',
     toastFormBRequirement: 'En el formulario extendido, Ciudad y Correo son obligatorios.',
     confirmDelete: '¿Está seguro de eliminar este registro?',
@@ -54,58 +54,13 @@ const translations = {
     originBasic: 'Básico',
     originExtended: 'Extendido',
     extraNoData: 'Sin datos extra'
-  },
-  en: {
-    title: 'Management',
-    subtitle: 'An intuitive platform for control and organization of civil records, designed with the highest UI/UX standards.',
-    basicTab: 'Basic (Form A)',
-    extendedTab: 'Extended (Form B)',
-    basicTitle: 'New Basic Record',
-    extendedTitle: 'New Extended Record',
-    recordsInSystem: 'Records in System',
-    synced: 'Synced with local database',
-    footerName: 'Wilson García - Technical Portfolio',
-    footerTech: 'Technical Test React v18 & Tailwind 3.4',
-    nombre: 'First Name',
-    apellido: 'Last Name',
-    documento: 'Document ID',
-    correo: 'Email Address',
-    ciudad: 'City',
-    placeholderNumbers: 'Numbers only',
-    placeholderWrite: 'Write your',
-    btnSave: 'Save Information',
-    btnProcessing: 'Processing...',
-    btnCancel: 'Cancel and Exit',
-    editMode: 'Edit Mode',
-    toastCreated: 'Record created successfully',
-    toastUpdated: 'Record updated correctly',
-    toastDeleted: 'Record deleted',
-    toastEditing: 'Editing',
-    toastErrorLoad: 'Error loading data',
-    toastErrorProcess: 'Error processing request',
-    toastErrorDelete: 'Error deleting',
-    toastFormBRequirement: 'In the extended form, City and Email are mandatory.',
-    confirmDelete: 'Are you sure you want to delete this record?',
-    tableTitle: 'Consolidated List',
-    tableSubtitle: 'Centralized record management',
-    tableSearch: 'Search by name or doc...',
-    tableHeaderName: 'Full Name',
-    tableHeaderDoc: 'Document',
-    tableHeaderExtra: 'Extra Info',
-    tableHeaderOrigin: 'Origin',
-    tableHeaderActions: 'Actions',
-    tableNoResults: 'No records found.',
-    originBasic: 'Basic',
-    originExtended: 'Extended',
-    extraNoData: 'No extra data'
   }
 };
 
 const AppContent: React.FC = () => {
   const navigate = useNavigate();
-  const [language, setLanguage] = useState<'es' | 'en'>('es');
+  const t = translations.es;
   const [isDark, setIsDark] = useState(false);
-  const t = translations[language];
 
   const [personasA, setPersonasA] = useState<Persona[]>([]);
   const [personasB, setPersonasB] = useState<Persona[]>([]);
@@ -217,17 +172,17 @@ const AppContent: React.FC = () => {
     return Array.from(new Map(combined.map(item => [item.id, item])).values()).sort((a, b) => b.id - a.id);
   }, [personasA, personasB]);
 
-  const basicFields = useMemo((): FormField[] => [
+  const basicFields: FormField[] = [
     { name: 'nombre', label: t.nombre, required: true },
     { name: 'apellido', label: t.apellido, required: true },
     { name: 'documento', label: t.documento, required: true, placeholder: t.placeholderNumbers },
-  ], [t]);
+  ];
 
-  const extendedFields = useMemo((): FormField[] => [
+  const extendedFields: FormField[] = [
     ...basicFields,
     { name: 'correo', label: t.correo, type: 'email', required: !!formDataExtended.ciudad || !!formDataExtended.correo },
     { name: 'ciudad', label: t.ciudad, required: !!formDataExtended.correo || !!formDataExtended.ciudad },
-  ], [basicFields, t, formDataExtended.correo, formDataExtended.ciudad]);
+  ];
 
   return (
     <div className="min-h-screen bg-[#fcfdfe] dark:bg-slate-950 transition-colors duration-500">
@@ -236,9 +191,6 @@ const AppContent: React.FC = () => {
       <div className="fixed top-6 left-6 z-40 flex gap-2">
         <button onClick={() => setIsDark(!isDark)} className="p-3 bg-white dark:bg-slate-900 shadow-xl border border-slate-100 dark:border-slate-800 rounded-2xl text-slate-600 dark:text-slate-400 hover:scale-110 transition-all active:scale-95">
           {isDark ? '☀️' : '🌙'}
-        </button>
-        <button onClick={() => setLanguage(language === 'es' ? 'en' : 'es')} className="px-4 py-3 bg-white dark:bg-slate-900 shadow-xl border border-slate-100 dark:border-slate-800 rounded-2xl text-xs font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">
-          {language}
         </button>
       </div>
 
