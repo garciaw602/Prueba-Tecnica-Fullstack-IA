@@ -12,7 +12,7 @@ const INITIAL_EXTENDED: PersonaInput = { nombre: '', apellido: '', documento: ''
 
 const translations = {
   es: {
-    title: 'Management',
+    title: 'Gestión',
     subtitle: 'Plataforma intuitiva para el control de registros civiles, diseñada con altos estándares de UI/UX.',
     basicTab: 'Básico (Form A)',
     extendedTab: 'Extendido (Form B)',
@@ -53,13 +53,60 @@ const translations = {
     tableNoResults: 'No se encontraron registros.',
     originBasic: 'Básico',
     originExtended: 'Extendido',
-    extraNoData: 'Sin datos extra'
+    extraNoData: 'Sin datos extra',
+    langLabel: 'ES'
+  },
+  en: {
+    title: 'Management',
+    subtitle: 'Intuitive platform for civil records control, designed with high UI/UX standards.',
+    basicTab: 'Basic (Form A)',
+    extendedTab: 'Extended (Form B)',
+    basicTitle: 'New Basic Record',
+    extendedTitle: 'New Extended Record',
+    recordsInSystem: 'Records in System',
+    synced: 'Synced locally',
+    footerName: 'Wilson García - Portfolio',
+    footerTech: 'React 19 & Tailwind Technical Test',
+    nombre: 'First Name',
+    apellido: 'Last Name',
+    documento: 'ID Document',
+    correo: 'Email Address',
+    ciudad: 'City',
+    placeholderNumbers: 'Numbers only',
+    placeholderWrite: 'Enter your',
+    btnSave: 'Save Information',
+    btnProcessing: 'Processing...',
+    btnCancel: 'Cancel and Exit',
+    editMode: 'Editing Mode',
+    toastCreated: 'Record created successfully',
+    toastUpdated: 'Record updated',
+    toastDeleted: 'Record deleted',
+    toastEditing: 'Editing',
+    toastErrorLoad: 'Error loading data',
+    toastErrorProcess: 'Processing error',
+    toastErrorDelete: 'Delete error',
+    toastFormBRequirement: 'In the extended form, City and Email are required.',
+    confirmDelete: 'Are you sure you want to delete this record?',
+    tableTitle: 'Consolidated List',
+    tableSubtitle: 'Centralized record management',
+    tableSearch: 'Search by name or document...',
+    tableHeaderName: 'Full Name',
+    tableHeaderDoc: 'Document',
+    tableHeaderExtra: 'Extra Info',
+    tableHeaderOrigin: 'Source',
+    tableHeaderActions: 'Actions',
+    tableNoResults: 'No records found.',
+    originBasic: 'Basic',
+    originExtended: 'Extended',
+    extraNoData: 'No extra data',
+    langLabel: 'EN'
   }
 };
 
 const AppContent: React.FC = () => {
   const navigate = useNavigate();
-  const t = translations.es;
+  const [language, setLanguage] = useState<'es' | 'en'>('es');
+  const t = translations[language];
   const [isDark, setIsDark] = useState(false);
 
   const [personasA, setPersonasA] = useState<Persona[]>([]);
@@ -94,7 +141,7 @@ const AppContent: React.FC = () => {
       }
     };
     loadData();
-  }, [t.toastErrorLoad]);
+  }, [language]); // Reload on language change to update system messages if needed
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, setter: React.Dispatch<React.SetStateAction<PersonaInput>>) => {
     const { name, value } = e.target;
@@ -184,13 +231,29 @@ const AppContent: React.FC = () => {
     { name: 'ciudad', label: t.ciudad, required: !!formDataExtended.correo || !!formDataExtended.ciudad },
   ];
 
+  const toggleLanguage = () => {
+    setLanguage(prev => prev === 'es' ? 'en' : 'es');
+  };
+
   return (
     <div className="min-h-screen bg-[#fcfdfe] dark:bg-slate-950 transition-colors duration-500">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       
-      <div className="fixed top-6 left-6 z-40 flex gap-2">
-        <button onClick={() => setIsDark(!isDark)} className="p-3 bg-white dark:bg-slate-900 shadow-xl border border-slate-100 dark:border-slate-800 rounded-2xl text-slate-600 dark:text-slate-400 hover:scale-110 transition-all active:scale-95">
+      {/* Botones de configuración fijos */}
+      <div className="fixed top-6 left-6 z-40 flex flex-col gap-3">
+        <button 
+          onClick={() => setIsDark(!isDark)} 
+          className="p-3 bg-white dark:bg-slate-900 shadow-xl border border-slate-100 dark:border-slate-800 rounded-2xl text-slate-600 dark:text-slate-400 hover:scale-110 transition-all active:scale-95 flex items-center justify-center"
+          title="Toggle Theme"
+        >
           {isDark ? '☀️' : '🌙'}
+        </button>
+        <button 
+          onClick={toggleLanguage} 
+          className="p-3 bg-white dark:bg-slate-900 shadow-xl border border-slate-100 dark:border-slate-800 rounded-2xl text-indigo-600 dark:text-indigo-400 hover:scale-110 transition-all active:scale-95 flex items-center justify-center font-bold text-xs"
+          title="Switch Language"
+        >
+          <span className="mr-1">🌐</span> {t.langLabel}
         </button>
       </div>
 
