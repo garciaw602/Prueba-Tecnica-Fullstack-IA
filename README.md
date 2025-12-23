@@ -76,6 +76,4 @@ Esto generará los archivos optimizados en la carpeta `/dist`.
 
 ## 👤 Autor
 **Wilson García**
-*   *Prueba Técnica Full-Stack*
-*   [LinkedIn](https://www.linkedin.com/) (Opcional: agrega tu link)
-*   [GitHub](https://github.com/) (Opcional: agrega tu link)
+
